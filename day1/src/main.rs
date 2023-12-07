@@ -1,6 +1,12 @@
 use std::ops::Deref;
 use std::str::FromStr;
 
+/**
+
+Exercise https://adventofcode.com/2023/day/1
+
+**/
+
 fn main() {
     println!("AOC day 1.");
     let list = read_list();
