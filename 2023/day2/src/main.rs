@@ -22,15 +22,11 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"#;
     let games = parse_list_games(sample_input);
 
     let games_compatible: Vec<&Game> = games.iter()
-        .filter(|game| is_game_compatible(game, &sample_request))
+        .filter(|game| game.is_compatible_with_request(&sample_request))
         .collect();
 
     println!("with sample input and sample request, the compatible games are: ");
     games_compatible.iter().for_each(|game| println!("{}", game));
-}
-
-fn is_game_compatible(game: &Game, request: &Extraction) -> bool {
-    &game.max_extraction() <= request
 }
 
 fn parse_list_games(games: &str) -> Vec<Game> {
@@ -100,16 +96,6 @@ fn extract_number_from_string(string: &str) -> u8 {
         .flatten()
         .collect();
     u8::from_str(str.as_str()).unwrap()
-}
-
-#[test]
-fn given_a_game_and_a_request_when_check_compatibility_then_false() {
-    let game = Game::new(1, vec![Extraction::new(12, 10, 5)]);
-    let request = Extraction::new(10, 10, 5);
-
-    let is_compatible = is_game_compatible(&game, &request);
-
-    assert_eq!(is_compatible, false);
 }
 
 #[test]

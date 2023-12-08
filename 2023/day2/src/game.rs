@@ -19,7 +19,11 @@ impl Game {
         self.extractions.as_ref()
     }
 
-    pub fn max_extraction(&self) -> Extraction {
+    pub fn is_compatible_with_request(&self, request: &Extraction) -> bool {
+        &self.max_extraction() <= request
+    }
+
+    fn max_extraction(&self) -> Extraction {
         let max_blue = self.extractions.iter().map(Extraction::blue).max().unwrap();
         let max_red = self.extractions.iter().map(Extraction::red).max().unwrap();
         let max_green = self.extractions.iter().map(Extraction::green).max().unwrap();
@@ -77,5 +81,15 @@ fn given_a_game_when_compute_max_extractions_then_match() {
     assert_eq!(max_extraction.green, 6);
     assert_eq!(max_extraction.red, 5);
     assert_eq!(max_extraction.blue, 4);
+}
+
+#[test]
+fn given_a_game_and_a_request_when_check_compatibility_then_false() {
+    let game = Game::new(1, vec![Extraction::new(12, 10, 5)]);
+    let request = Extraction::new(10, 10, 5);
+
+    let is_compatible = game.is_compatible_with_request(&request);
+
+    assert_eq!(is_compatible, false);
 }
 
