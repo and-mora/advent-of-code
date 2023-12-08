@@ -13,8 +13,6 @@ fn main() {
     println!("computing sum...");
     let result = compute_sum(list);
     println!("result is: {}", result);
-    assert_eq!(result, 142);
-    println!("correct!")
 }
 
 fn read_list<'a>() -> Vec<&'a str> {
