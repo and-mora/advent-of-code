@@ -7,9 +7,7 @@ use crate::game::{Extraction, Game};
 mod game;
 
 /**
-
 Exercise https://adventofcode.com/2023/day/2
-
  **/
 
 fn main() {
@@ -24,6 +22,13 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"#;
     let sample_request = Extraction::new(12, 14, 13);
 
     let games = parse_list_games(sample_input);
+
+    let games_compatible: Vec<&Game> = games.iter()
+        .filter(|game| is_game_compatible(game, &sample_request))
+        .collect();
+
+    println!("with sample input and sample request, the compatible games are: ");
+    games_compatible.iter().for_each(|game| println!("{}", game));
 }
 
 fn is_game_compatible(game: &Game, request: &Extraction) -> bool {
@@ -86,8 +91,17 @@ fn parse_extraction(extraction_string: &str) -> Extraction {
     Extraction::new(red_cubes, blue_cubes, green_cubes)
 }
 
+///
+/// # Expected format:
+/// ```
+/// <number-multi-digits> <other string>
+///
 fn extract_number_from_string(string: &str) -> u8 {
-    string.matches(char::is_numeric).map(|value| u8::from_str(value).unwrap()).sum()
+    let str: String = string.matches(char::is_numeric)
+        .map(|s| s.chars())
+        .flatten()
+        .collect();
+    u8::from_str(str.as_str()).unwrap()
 }
 
 #[test]
@@ -132,6 +146,17 @@ fn given_3_extractions_when_parse_then_ok() {
 
     assert_eq!(extraction.red(), 3);
     assert_eq!(extraction.blue(), 1);
+    assert_eq!(extraction.green(), 2);
+}
+
+#[test]
+fn given_extractions_2digit_when_parse_then_ok() {
+    let str = "10 blue, 2 green, 3 red";
+
+    let extraction = parse_extraction(str);
+
+    assert_eq!(extraction.red(), 3);
+    assert_eq!(extraction.blue(), 10);
     assert_eq!(extraction.green(), 2);
 }
 
