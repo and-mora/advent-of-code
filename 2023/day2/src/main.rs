@@ -1,5 +1,3 @@
-use std::ops::Deref;
-use std::process::id;
 use std::str::FromStr;
 
 use crate::game::{Extraction, Game};

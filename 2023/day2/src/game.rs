@@ -1,4 +1,4 @@
-use std::cmp::{max, Ordering};
+use std::cmp::Ordering;
 
 #[derive(Debug)]
 pub struct Game {
@@ -43,7 +43,6 @@ pub struct Extraction {
 }
 
 impl Ord for Extraction {
-
     fn cmp(&self, other: &Self) -> Ordering {
         self.red.cmp(&other.red)
             .then(self.blue.cmp(&other.blue))
