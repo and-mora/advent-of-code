@@ -1,5 +1,6 @@
 use std::cmp::{max, Ordering};
 
+#[derive(Debug)]
 pub struct Game {
     id: u8,
     extractions: Vec<Extraction>,
@@ -24,6 +25,13 @@ impl Game {
         let max_green = self.extractions.iter().map(Extraction::green).max().unwrap();
 
         Extraction::new(max_red, max_blue, max_green)
+    }
+}
+
+// This makes it possible to print Game values with {}.
+impl std::fmt::Display for Game {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Game n.{}", self.id)
     }
 }
 
