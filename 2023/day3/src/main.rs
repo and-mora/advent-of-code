@@ -149,15 +149,3 @@ fn main() {
 fn map_to_2darray(input: &str) -> Vec<Vec<char>> {
     input.lines().map(|line| line.chars().collect()).collect()
 }
-
-#[test]
-fn test_compute_sum() {
-    let list = vec!["1abc2", "pqr3stu8vwx"];
-}
-
-#[test]
-fn test_for() {
-    for i in (0..2).rev() {
-        println!("i: {}", i);
-    }
-}
