@@ -38,6 +38,9 @@ Of course, the actual engine schematic is much larger. What is the sum of all of
 /*
 
 the best way of representing the engine schematic is a matrix of chars, where each string is a row of the schematic.
+
+are any better data structures to enable the easy retrieval of the numbers and their adjacency to symbols?
+
  */
 
 fn main() {
