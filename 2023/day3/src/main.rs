@@ -110,26 +110,17 @@ fn main() {
                 if is_adjacent_to_symbol {
                     // to find the entire number, we need to find the start and end index of the number
                     end_index = find_end_index_of_current_number(row, j);
-                    for k in (0..j + 1).rev() {
-                        if row[k].is_numeric() {
-                            start_index = k; // update start index
-                        } else {
-                            break; // stop when we find a non-numeric character
-                        }
-                    }
-                    // retrieve the number from the row using the start and end index
-                    let number: u32 = row[start_index..=end_index]
-                        .iter()
-                        .collect::<String>()
-                        .parse()
-                        .expect("could not parse number");
+
+                    start_index = find_start_index_of_current_number(row, end_index);
+
+                    let number_to_sum = parse_number_from_row(row, start_index, end_index);
 
                     // println!("summing number: {}", number);
-                    total_sum += number; // add the number to the total sum
+                    total_sum += number_to_sum; // add the number to the total sum
 
                     println!(
                         "Found number: {} from index {} to {}",
-                        number, start_index, end_index
+                        number_to_sum, start_index, end_index
                     );
                 }
             }
@@ -138,6 +129,26 @@ fn main() {
     println!("Total sum of part numbers: {}", total_sum);
     assert_eq!(4361, total_sum, "The sum of part numbers is not correct");
     // println!("{:?}", array);
+}
+
+fn parse_number_from_row(row: &Vec<char>, start_index: usize, end_index: usize) -> u32 {
+    row[start_index..=end_index]
+        .iter()
+        .collect::<String>()
+        .parse()
+        .expect("could not parse number")
+}
+
+fn find_start_index_of_current_number(row: &Vec<char>, current_index: usize) -> usize {
+    let mut start_index = current_index; // start with the current index
+    for k in (0..current_index + 1).rev() {
+        if row[k].is_numeric() {
+            start_index = k; // update start index
+        } else {
+            break; // stop when we find a non-numeric character
+        }
+    }
+    start_index
 }
 
 fn find_end_index_of_current_number(row: &Vec<char>, current_index: usize) -> usize {
