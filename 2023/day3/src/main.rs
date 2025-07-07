@@ -65,8 +65,6 @@ fn main() {
         let mut end_index = 0;
 
         for (j, &c) in row.iter().enumerate() {
-            // println!("{:?}",array[i][j]);
-
             // I will iterate all the row. For every digit found I will check whether is adjacent to a symbol.
             // if it is then I have to read the entire number.
             // To read the entire number I will need to find the start and end index of the number and save it or sum it
@@ -135,15 +133,10 @@ fn main() {
                     // println!("summing number: {}", number);
                     total_sum += number; // add the number to the total sum
 
-                    // skip the rest of the number
-                    // we can skip the rest of the number by updating j to end_index
                     println!(
                         "Found number: {} from index {} to {}",
                         number, start_index, end_index
                     );
-                    // println!("Skipping to index {}", end_index);
-                    // we can skip the rest of the number by updating j to end_index
-
                 }
             }
         }
