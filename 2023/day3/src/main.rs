@@ -61,7 +61,7 @@ fn main() {
     // routine to compute sum of part numbers
     let mut total_sum = 0;
     for (i, row) in array.iter().enumerate() {
-        let mut start_index = 0;
+        let mut start_index;
         let mut end_index = 0;
 
         for (j, &c) in row.iter().enumerate() {
@@ -109,6 +109,7 @@ fn main() {
                 // if is adjacent to a symbol, then we need to read the entire number and skip over it
                 if is_adjacent_to_symbol {
                     // to find the entire number, we need to find the start and end index of the number
+                    // and then parse it from string
                     end_index = find_end_index_of_current_number(row, j);
 
                     start_index = find_start_index_of_current_number(row, end_index);
@@ -128,7 +129,6 @@ fn main() {
     }
     println!("Total sum of part numbers: {}", total_sum);
     assert_eq!(4361, total_sum, "The sum of part numbers is not correct");
-    // println!("{:?}", array);
 }
 
 fn parse_number_from_row(row: &Vec<char>, start_index: usize, end_index: usize) -> u32 {
