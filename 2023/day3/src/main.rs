@@ -72,7 +72,7 @@ fn main() {
             if c == '.' {
                 continue; // skip empty cells
             }
-            // This is a trick to make the for skip to next iteration when we are in the situation that 
+            // This is a trick to make the for skip to next iteration when we are in the situation that
             // a number has been found and summed but the j index is still in the range of the number.
             // This is needed to avoid double counting the same number.
             if j <= end_index {
@@ -109,14 +109,8 @@ fn main() {
                 // if is adjacent to a symbol, then we need to read the entire number and skip over it
                 if is_adjacent_to_symbol {
                     // to find the entire number, we need to find the start and end index of the number
-                    for k in j..row.len() {
-                        if row[k].is_numeric() {
-                            end_index = k; // update end index
-                        } else {
-                            break; // stop when we find a non-numeric character
-                        }
-                    }
-                    for k in (0..j+1).rev() {
+                    end_index = find_end_index_of_current_number(row, j);
+                    for k in (0..j + 1).rev() {
                         if row[k].is_numeric() {
                             start_index = k; // update start index
                         } else {
@@ -144,6 +138,18 @@ fn main() {
     println!("Total sum of part numbers: {}", total_sum);
     assert_eq!(4361, total_sum, "The sum of part numbers is not correct");
     // println!("{:?}", array);
+}
+
+fn find_end_index_of_current_number(row: &Vec<char>, current_index: usize) -> usize {
+    let mut end_index = current_index; // start with the current index
+    for k in current_index..row.len() {
+        if row[k].is_numeric() {
+            end_index = k; // update end index
+        } else {
+            break; // stop when we find a non-numeric character
+        }
+    }
+    end_index
 }
 
 fn map_to_2darray(input: &str) -> Vec<Vec<char>> {
