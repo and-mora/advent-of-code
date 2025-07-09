@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::ops::Deref;
 
 /**
 
@@ -283,7 +282,8 @@ impl Almanac {
     }
 
     fn get_location_for_seed(&self, seed: u8) -> Option<&u8> {
-        self.seed_to_soil.get(&seed)
+        self.seed_to_soil
+            .get(&seed)
             .map(|soil| self.soil_to_fertilizer.get(soil).unwrap())
             .map(|fertilizer| self.fertilizer_to_water.get(fertilizer).unwrap())
             .map(|water| self.water_to_light.get(water).unwrap())
